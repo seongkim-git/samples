@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: data1
+    version: v1
+  name: data1
+  namespace: test
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: data1
+      version: v1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        instrumentation.opentelemetry.io/container-names: data1
+        instrumentation.opentelemetry.io/inject-java: "true"
+        sidecar.istio.io/inject: "true"
+        sidecar.opentelemetry.io/inject: "false"
+      labels:
+        app: data1
+        version: v1
+      name: data1
+    spec:
+      containers:
+      - image: lmocpdevreg001.lmocp.com:5000/samples/data1:latest
+        imagePullPolicy: Always
+        name: data1
+        ports:
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - 'curl --noproxy ''*'' -is ''http://localhost:8080/health'' | grep -iq
+              ''"status": "UP"'''
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 60
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: data1
+  name: data1
+  namespace: test
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: data1
+  sessionAffinity: None
+  type: ClusterIP

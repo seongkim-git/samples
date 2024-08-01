@@ -1,0 +1,100 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  annotations:
+    instrumentation.opentelemetry.io/default-auto-instrumentation-apache-httpd-image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-apache-httpd:1.0.4
+    instrumentation.opentelemetry.io/default-auto-instrumentation-dotnet-image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-dotnet:1.2.0
+    instrumentation.opentelemetry.io/default-auto-instrumentation-go-image: ghcr.io/open-telemetry/opentelemetry-go-instrumentation/autoinstrumentation-go:v0.13.0-alpha
+    instrumentation.opentelemetry.io/default-auto-instrumentation-java-image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-java:1.32.1
+    instrumentation.opentelemetry.io/default-auto-instrumentation-nginx-image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-apache-httpd:1.0.4
+    instrumentation.opentelemetry.io/default-auto-instrumentation-nodejs-image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-nodejs:0.51.0
+    instrumentation.opentelemetry.io/default-auto-instrumentation-python-image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-python:0.45b0
+  creationTimestamp: "2024-07-27T04:28:51Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/managed-by: opentelemetry-operator
+  name: java-instrumentation
+  namespace: test
+  resourceVersion: "702603"
+  uid: 15bbf0be-2bd2-4b44-aee6-fdbced1a2892
+spec:
+  apacheHttpd:
+    configPath: /usr/local/apache2/conf
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-apache-httpd:1.0.4
+    resourceRequirements:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 1m
+        memory: 128Mi
+    version: "2.4"
+  dotnet:
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-dotnet:1.2.0
+    resourceRequirements:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
+  exporter:
+    endpoint: http://otel-collector-headless:4317
+  go:
+    image: ghcr.io/open-telemetry/opentelemetry-go-instrumentation/autoinstrumentation-go:v0.13.0-alpha
+    resourceRequirements:
+      limits:
+        cpu: 500m
+        memory: 32Mi
+      requests:
+        cpu: 50m
+        memory: 32Mi
+  java:
+    env:
+    - name: OTEL_INSTRUMENTATION_KAFKA_ENABLED
+      value: "false"
+    - name: OTEL_INSTRUMENTATION_REDISCALA_ENABLED
+      value: "false"
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-java:1.32.1
+    resources:
+      limits:
+        cpu: 500m
+        memory: 64Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+  nginx:
+    configFile: /etc/nginx/nginx.conf
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-apache-httpd:1.0.4
+    resourceRequirements:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 1m
+        memory: 128Mi
+  nodejs:
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-nodejs:0.51.0
+    resourceRequirements:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
+  propagators:
+  - tracecontext
+  - baggage
+  python:
+    image: ghcr.io/open-telemetry/opentelemetry-operator/autoinstrumentation-python:0.45b0
+    resourceRequirements:
+      limits:
+        cpu: 500m
+        memory: 32Mi
+      requests:
+        cpu: 50m
+        memory: 32Mi
+  resource: {}
+  sampler:
+    argument: "1"
+    type: parentbased_traceidratio

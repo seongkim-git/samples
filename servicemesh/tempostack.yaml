@@ -1,0 +1,117 @@
+apiVersion: tempo.grafana.com/v1alpha1
+kind: TempoStack
+metadata:
+  creationTimestamp: "2024-07-27T00:08:07Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/managed-by: tempo-operator
+    tempo.grafana.com/distribution: openshift
+  name: sample
+  namespace: tracing-system
+  resourceVersion: "553373"
+  uid: 3be6184c-cb4e-4aec-a90a-182af009b8f3
+spec:
+  hashRing:
+    memberlist: {}
+  images: {}
+  limits:
+    global:
+      ingestion: {}
+      query:
+        maxSearchDuration: 0s
+  managementState: Managed
+  observability:
+    grafana:
+      instanceSelector: {}
+    metrics: {}
+    tracing:
+      jaeger_agent_endpoint: localhost:6831
+  replicationFactor: 1
+  resources:
+    total:
+      limits:
+        cpu: "2"
+        memory: 2Gi
+  retention:
+    global:
+      traces: 48h0m0s
+  search:
+    defaultResultLimit: 20
+    maxDuration: 0s
+  serviceAccount: tempo-sample
+  storage:
+    secret:
+      name: s3-secret-tempo
+      type: s3
+    tls:
+      enabled: false
+  storageSize: 1Gi
+  template:
+    compactor:
+      replicas: 1
+    distributor:
+      component:
+        replicas: 1
+      tls:
+        enabled: false
+    gateway:
+      component: {}
+      enabled: false
+      ingress:
+        route: {}
+    ingester:
+      replicas: 1
+    querier:
+      replicas: 1
+      resources:
+        limits:
+          cpu: "1"
+          memory: 1Gi
+    queryFrontend:
+      component:
+        replicas: 1
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+      jaegerQuery:
+        enabled: true
+        ingress:
+          route:
+            termination: edge
+          type: route
+        monitorTab:
+          enabled: false
+          prometheusEndpoint: ""
+        servicesQueryDuration: 72h0m0s
+status:
+  components:
+    compactor:
+      Running:
+      - tempo-sample-compactor-58d755cf5f-9ltxb
+    distributor:
+      Running:
+      - tempo-sample-distributor-595fcffc59-rwkp5
+    gateway: {}
+    ingester:
+      Running:
+      - tempo-sample-ingester-0
+    querier:
+      Running:
+      - tempo-sample-querier-7b69f7dd56-r4gb2
+    queryFrontend:
+      Running:
+      - tempo-sample-query-frontend-7857cc5d4b-b2hml
+  conditions:
+  - lastTransitionTime: "2024-07-27T00:08:30Z"
+    message: Some Tempo components are pending on dependencies
+    reason: PendingComponents
+    status: "False"
+    type: Pending
+  - lastTransitionTime: "2024-07-27T00:08:30Z"
+    message: All components are operational
+    reason: Ready
+    status: "True"
+    type: Ready
+  operatorVersion: 0.10.0
+  tempoVersion: 2.4.1

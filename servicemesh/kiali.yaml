@@ -1,0 +1,123 @@
+apiVersion: kiali.io/v1alpha1
+kind: Kiali
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kiali.io/v1alpha1","kind":"Kiali","metadata":{"annotations":{"maistra.io/mesh-generation":"2.5.2-1-2"},"labels":{"app.kubernetes.io/component":"kiali","app.kubernetes.io/instance":"istio-system","app.kubernetes.io/managed-by":"maistra-istio-operator","app.kubernetes.io/name":"kiali","app.kubernetes.io/part-of":"istio","app.kubernetes.io/version":"2.5.2-1-2","maistra-version":"2.5.2","maistra.io/owner":"istio-system","maistra.io/owner-name":"basic"},"name":"kiali","namespace":"istio-system","ownerReferences":[{"apiVersion":"maistra.io/v2","blockOwnerDeletion":true,"controller":true,"kind":"ServiceMeshControlPlane","name":"basic","uid":"1a9a819f-f697-4078-a589-7f952ea37eb7"}]},"spec":{"auth":{"strategy":"openshift"},"deployment":{"accessible_namespaces":[],"image_pull_policy":"","ingress":{"enabled":true},"namespace":"istio-system","pod_labels":{"sidecar.istio.io/inject":"false"}},"external_services":{"custom_dashboards":{"namespace_label":"kubernetes_namespace"},"grafana":{"auth":{"password":"Z2ZvYIcnoB4p8aGyhUD77PI/OEQ2vaJfe3QwJeqgpAnM/A42QzmX36rdFzEtQzlR36kSbwZEa8LxVZ+/p9UjGFjstOWCymiZ90rWUs5u1pNxDHQUOZB4Fqj4HwwnqIjX0ky0Q9NtLhHHmGFR+x+qXUNslxLRBZ+O8XC8mmYX8o6tbbRaVA8XntisVLqFyGSwRbjKYNUJBerc/VQm2Yh2360P/D6opjlR/TQ9MramzeKjChmkLjppGYaryn0XclD3n/Af1AhhR9n1rgLuzN7S31Y5rV5UMoB45G+IWxD2UqSZkFfRMlxXyMGblwy+OD6QxzDdq34qIX90bO3rV+2y","type":"basic","use_kiali_token":false,"username":"internal"},"enabled":true,"in_cluster_url":"https://grafana.istio-system.svc:3000","url":"https://grafana-istio-system.apps.cluster-hgsc9.hgsc9.sandbox2742.opentlc.com"},"istio":{"config_map_name":"istio-basic","istio_sidecar_injector_config_map_name":"istio-sidecar-injector-basic","istiod_deployment_name":"istiod-basic","url_service_version":"http://istiod-basic.istio-system:15014/version"},"prometheus":{"auth":{"password":"Z2ZvYIcnoB4p8aGyhUD77PI/OEQ2vaJfe3QwJeqgpAnM/A42QzmX36rdFzEtQzlR36kSbwZEa8LxVZ+/p9UjGFjstOWCymiZ90rWUs5u1pNxDHQUOZB4Fqj4HwwnqIjX0ky0Q9NtLhHHmGFR+x+qXUNslxLRBZ+O8XC8mmYX8o6tbbRaVA8XntisVLqFyGSwRbjKYNUJBerc/VQm2Yh2360P/D6opjlR/TQ9MramzeKjChmkLjppGYaryn0XclD3n/Af1AhhR9n1rgLuzN7S31Y5rV5UMoB45G+IWxD2UqSZkFfRMlxXyMGblwy+OD6QxzDdq34qIX90bO3rV+2y","type":"basic","use_kiali_token":false,"username":"internal"},"url":"https://prometheus.istio-system.svc:9090"},"tracing":{"auth":{"password":"Z2ZvYIcnoB4p8aGyhUD77PI/OEQ2vaJfe3QwJeqgpAnM/A42QzmX36rdFzEtQzlR36kSbwZEa8LxVZ+/p9UjGFjstOWCymiZ90rWUs5u1pNxDHQUOZB4Fqj4HwwnqIjX0ky0Q9NtLhHHmGFR+x+qXUNslxLRBZ+O8XC8mmYX8o6tbbRaVA8XntisVLqFyGSwRbjKYNUJBerc/VQm2Yh2360P/D6opjlR/TQ9MramzeKjChmkLjppGYaryn0XclD3n/Af1AhhR9n1rgLuzN7S31Y5rV5UMoB45G+IWxD2UqSZkFfRMlxXyMGblwy+OD6QxzDdq34qIX90bO3rV+2y","type":"basic","use_kiali_token":false,"username":"internal"},"enabled":false,"in_cluster_url":"https://jaeger-query.istio-system.svc","namespace":"istio-system","service":"","url":"","use_grpc":false}},"installation_tag":"Kiali [istio-system]","istio_namespace":"istio-system","version":"v1.73"}}
+    maistra.io/mesh-generation: 2.5.2-1-2
+  creationTimestamp: "2024-07-27T00:03:03Z"
+  finalizers:
+  - kiali.io/finalizer
+  generation: 6
+  labels:
+    app.kubernetes.io/component: kiali
+    app.kubernetes.io/instance: istio-system
+    app.kubernetes.io/managed-by: maistra-istio-operator
+    app.kubernetes.io/name: kiali
+    app.kubernetes.io/part-of: istio
+    app.kubernetes.io/version: 2.5.2-1-2
+    maistra-version: 2.5.2
+    maistra.io/owner: istio-system
+    maistra.io/owner-name: basic
+  name: kiali
+  namespace: istio-system
+  ownerReferences:
+  - apiVersion: maistra.io/v2
+    blockOwnerDeletion: true
+    controller: true
+    kind: ServiceMeshControlPlane
+    name: basic
+    uid: 1a9a819f-f697-4078-a589-7f952ea37eb7
+  resourceVersion: "788402"
+  uid: d3ce4f82-ec77-4355-a531-ae65a0d29f11
+spec:
+  api:
+    namespaces:
+      exclude: []
+  auth:
+    strategy: openshift
+  deployment:
+    accessible_namespaces:
+    - test
+    image_pull_policy: ""
+    ingress:
+      enabled: true
+    namespace: istio-system
+    pod_labels:
+      sidecar.istio.io/inject: "false"
+  external_services:
+    custom_dashboards:
+      namespace_label: kubernetes_namespace
+    grafana:
+      auth:
+        password: Z2ZvYIcnoB4p8aGyhUD77PI/OEQ2vaJfe3QwJeqgpAnM/A42QzmX36rdFzEtQzlR36kSbwZEa8LxVZ+/p9UjGFjstOWCymiZ90rWUs5u1pNxDHQUOZB4Fqj4HwwnqIjX0ky0Q9NtLhHHmGFR+x+qXUNslxLRBZ+O8XC8mmYX8o6tbbRaVA8XntisVLqFyGSwRbjKYNUJBerc/VQm2Yh2360P/D6opjlR/TQ9MramzeKjChmkLjppGYaryn0XclD3n/Af1AhhR9n1rgLuzN7S31Y5rV5UMoB45G+IWxD2UqSZkFfRMlxXyMGblwy+OD6QxzDdq34qIX90bO3rV+2y
+        type: basic
+        use_kiali_token: false
+        username: internal
+      enabled: true
+      in_cluster_url: https://grafana.istio-system.svc:3000
+      url: https://grafana-istio-system.apps.cluster-hgsc9.hgsc9.sandbox2742.opentlc.com
+    istio:
+      config_map_name: istio-basic
+      istio_sidecar_injector_config_map_name: istio-sidecar-injector-basic
+      istiod_deployment_name: istiod-basic
+      url_service_version: http://istiod-basic.istio-system:15014/version
+    prometheus:
+      auth:
+        password: Z2ZvYIcnoB4p8aGyhUD77PI/OEQ2vaJfe3QwJeqgpAnM/A42QzmX36rdFzEtQzlR36kSbwZEa8LxVZ+/p9UjGFjstOWCymiZ90rWUs5u1pNxDHQUOZB4Fqj4HwwnqIjX0ky0Q9NtLhHHmGFR+x+qXUNslxLRBZ+O8XC8mmYX8o6tbbRaVA8XntisVLqFyGSwRbjKYNUJBerc/VQm2Yh2360P/D6opjlR/TQ9MramzeKjChmkLjppGYaryn0XclD3n/Af1AhhR9n1rgLuzN7S31Y5rV5UMoB45G+IWxD2UqSZkFfRMlxXyMGblwy+OD6QxzDdq34qIX90bO3rV+2y
+        type: basic
+        use_kiali_token: false
+        username: internal
+      url: https://prometheus.istio-system.svc:9090
+    tracing:
+      auth:
+        password: Z2ZvYIcnoB4p8aGyhUD77PI/OEQ2vaJfe3QwJeqgpAnM/A42QzmX36rdFzEtQzlR36kSbwZEa8LxVZ+/p9UjGFjstOWCymiZ90rWUs5u1pNxDHQUOZB4Fqj4HwwnqIjX0ky0Q9NtLhHHmGFR+x+qXUNslxLRBZ+O8XC8mmYX8o6tbbRaVA8XntisVLqFyGSwRbjKYNUJBerc/VQm2Yh2360P/D6opjlR/TQ9MramzeKjChmkLjppGYaryn0XclD3n/Af1AhhR9n1rgLuzN7S31Y5rV5UMoB45G+IWxD2UqSZkFfRMlxXyMGblwy+OD6QxzDdq34qIX90bO3rV+2y
+        type: basic
+        use_kiali_token: false
+        username: internal
+      enabled: true
+      in_cluster_url: http://tempo-sample-query-frontend.tracing-system.svc.cluster.local:16686
+      namespace: istio-system
+      service: ""
+      url: https://tempo-sample-query-frontend-tracing-system.apps.cluster-hgsc9.hgsc9.sandbox2742.opentlc.com
+      use_grpc: false
+  installation_tag: Kiali [istio-system]
+  istio_namespace: istio-system
+  version: v1.73
+status:
+  conditions:
+  - lastTransitionTime: "2024-07-27T00:03:42Z"
+    message: ""
+    reason: ""
+    status: "False"
+    type: Failure
+  - ansibleResult:
+      changed: 8
+      completion: 2024-07-27T07:03:33.326293
+      failures: 0
+      ok: 96
+      skipped: 49
+    lastTransitionTime: "2024-07-27T00:03:03Z"
+    message: Awaiting next reconciliation
+    reason: Successful
+    status: "True"
+    type: Running
+  - lastTransitionTime: "2024-07-27T07:03:33Z"
+    message: Last reconciliation succeeded
+    reason: Successful
+    status: "True"
+    type: Successful
+  deployment:
+    accessibleNamespaces: istio-system,test
+    instanceName: kiali
+    namespace: istio-system
+  environment:
+    isMaistra: true
+    isOpenshift: true
+    kubernetesVersion: 1.29.6+aba1e8d
+    openshiftVersion: 4.16.3
+    operatorVersion: v1.73.8
+  progress:
+    duration: "0:00:31"
+    message: 8. Finished all resource creation
+  specVersion: v1.73

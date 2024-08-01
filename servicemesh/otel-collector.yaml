@@ -1,0 +1,60 @@
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: opentelemetry-operator
+  name: otel
+  namespace: observability
+spec:
+  serviceAccount: otel-collector-deployment
+  config:
+    exporters:
+      otlp:
+        endpoint: tempo-tempostack1-distributor.tracing-system.svc.cluster.local:4317
+        tls:
+          insecure: true
+    processors:
+      batch:
+        send_batch_max_size: 10000
+        timeout: 5s
+      memory_limiter:
+        check_interval: 1s
+        limit_percentage: 75
+        spike_limit_percentage: 15
+    receivers:
+      otlp:
+        protocols:
+          grpc: {}
+          http: {}
+    service:
+      pipelines:
+        traces:
+          exporters:
+          - otlp
+          processors:
+          - memory_limiter
+          - batch
+          receivers:
+          - otlp
+  configVersions: 3
+  daemonSetUpdateStrategy: {}
+  deploymentUpdateStrategy: {}
+  ingress:
+    route: {}
+  managementState: managed
+  mode: deployment
+  observability:
+    metrics: {}
+  podDisruptionBudget:
+    maxUnavailable: 1
+  replicas: 1
+  resources: {}
+  targetAllocator:
+    allocationStrategy: consistent-hashing
+    filterStrategy: relabel-config
+    observability:
+      metrics: {}
+    prometheusCR:
+      scrapeInterval: 30s
+    resources: {}
+  upgradeStrategy: automatic

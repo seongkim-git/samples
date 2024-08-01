@@ -1,0 +1,21 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: java-instrumentation
+spec:
+  env:
+    - name: OTEL_EXPORTER_OTLP_TIMEOUT
+      value: "20"
+  exporter:
+    endpoint: http://otel-collector-headless.observability.svc.cluster.local:4317
+  propagators:
+    - tracecontext
+    - baggage
+  sampler:
+    type: parentbased_traceidratio
+    argument: "0.25"
+  java:
+    image: lmocpdevreg001.lmocp.com:5000/open-telemetry/opentelemetry-operator/autoinstrumentation-java:1.32.1
+    env:
+    - name: OTEL_JAVAAGENT_DEBUG
+      value: "true"
